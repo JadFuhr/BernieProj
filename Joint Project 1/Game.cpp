@@ -44,13 +44,23 @@ int main()
 	return 0;
 }
 
+
+sf::Texture EnemyOne::s_enemy1Texture;
+
 Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
 // Default constructor
 {
-
+	// int x = sf::Texture::getMaximumSize(); // check max texture size
 	setupSprite();
 	m_player.setupSprite();
-	m_enemyOne.setupEnemyOneSprite();
+	if (!EnemyOne::s_enemy1Texture.loadFromFile("ASSETS\\IMAGES\\enemy1.png"))
+	{
+		std::cout << "Error Loading Enemy One" << std::endl;
+	}
+	for (int i = 0; i < MAX_PTERADACTYL; i++)
+	{
+		m_flock[i].setupEnemyOneSprite();
+	}
 	m_enemyTwo.setupEnemyTwoSprite();
 
 }
@@ -120,7 +130,11 @@ void Game::update()
 {
 	
 	m_player.update();
-	m_enemyOne.moveEnemyOne(m_player);
+	for (int i = 0; i < MAX_PTERADACTYL; i++)
+	{
+		m_flock[i].update(m_player);
+	}
+	
 	// update any game variables here ...
 
 }
@@ -135,7 +149,15 @@ void Game::draw()
 	window.draw(m_message);  // write message to the screen
 	window.draw(m_backgroundSprite);
 	window.draw(m_player.getSprite());
-	window.draw(m_enemyOne.getFirstEnemySprite());
+	for (int i = 0; i < MAX_PTERADACTYL; i++)
+	{
+		if (m_flock[i].m_alive)
+		{
+			window.draw(m_flock[i].getBody());
+			
+		}
+	}
+	
 	window.draw(m_enemyTwo.getSecondEnemySprite());
 
 	window.display();
@@ -154,6 +176,10 @@ void Game::setupSprite()
 	m_backgroundSprite.setPosition(750, 400);
 	m_backgroundSprite.setScale(2.0f, 2.0f);
 
+}
+
+void Game::spawn()
+{
 }
 
 

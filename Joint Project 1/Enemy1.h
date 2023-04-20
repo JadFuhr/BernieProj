@@ -10,19 +10,28 @@ class EnemyOne
 	
 private:
 
+	sf::Sprite m_enemy1Sprite;
 
 
 public:
+	static sf::Texture s_enemy1Texture;
 
-	sf::Sprite getFirstEnemySprite();
+	sf::Sprite getBody();
 	void setupEnemyOneSprite();
-	void moveEnemyOne(Player& t_player);
+	void update(Player& t_player);
+	void spawn();
+	void move(Player& t_player);
 
-	sf::Sprite m_enemy1Sprite;
-	sf::Texture m_enemy1Texture;
+	float m_speed;
 
 	sf::Vector2f m_enemyOnePosition{ 100,100 };
 	Direction m_enemyOneFacing{ Direction::South };
+
+	bool m_alive = false;
+
+	int m_spawnTimer;
+
+	sf::Vector2f m_spawnPoints[3] = { sf::Vector2f{10.0f,130.0f}, sf::Vector2f{510.0f,410.0f} ,sf::Vector2f{210.0f,510.0f} };
 
 	sf::Sprite getSprite();
 

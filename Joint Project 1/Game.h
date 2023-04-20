@@ -30,11 +30,15 @@ public:	  // declaration of member functions
 	void	update();
 	void	draw();
 	void setupSprite();
+	void spawn();
 	
 
 	Player m_player;
-	EnemyOne m_enemyOne;
+	//EnemyOne m_enemyOne;
 	EnemyTwo m_enemyTwo;
+
+	EnemyOne m_flock[MAX_PTERADACTYL];
+
 
 	sf::Sprite m_backgroundSprite;
 	sf::Texture m_backgroundTexture;
