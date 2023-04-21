@@ -16,7 +16,7 @@ public:
 
 	sf::Sprite getSecondEnemySprite();
 	void setupEnemyTwoSprite();
-	void moveEnemyTwo();
+	void moveEnemyTwo(Player& t_player);
 
 	sf::Sprite m_enemy2Sprite;
 	sf::Texture m_enemy2Texture;
@@ -24,6 +24,8 @@ public:
 	sf::Vector2f m_enemyTwoPosition{ 1400,100 };
 	Direction m_enemeyTwoFacing{ Direction::South };
 
-	
+	bool m_isAlive;
+
+	bool m_canMove;
 
 };

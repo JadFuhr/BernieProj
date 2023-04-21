@@ -50,7 +50,10 @@ Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<
 
 	setupSprite();
 	m_player.setupSprite();
-	m_enemyOne.setupEnemyOneSprite();
+	for (int i = 0; i < MAX_DRAGON_ENEMY; i++)
+	{
+		m_enemyOnes[i].setupEnemyOneSprite();
+	}
 	m_enemyTwo.setupEnemyTwoSprite();
 
 }
@@ -120,7 +123,11 @@ void Game::update()
 {
 	
 	m_player.update();
-	m_enemyOne.moveEnemyOne(m_player);
+	for (int i = 0; i < MAX_DRAGON_ENEMY; i++)
+	{
+		m_enemyOnes[i].update(m_player);
+	}
+	m_enemyTwo.moveEnemyTwo(m_player);
 	// update any game variables here ...
 
 }
@@ -135,7 +142,10 @@ void Game::draw()
 	window.draw(m_message);  // write message to the screen
 	window.draw(m_backgroundSprite);
 	window.draw(m_player.getSprite());
-	window.draw(m_enemyOne.getFirstEnemySprite());
+	for (int i = 0; i < MAX_DRAGON_ENEMY; i++)
+	{
+		window.draw(m_enemyOnes[i].getBody());
+	}
 	window.draw(m_enemyTwo.getSecondEnemySprite());
 
 	window.display();

@@ -7,17 +7,15 @@
 
 void Player::update()
 {
-
 	movePlayer();
 	getDirection();
-
+	collision();
 }
 
 sf::Vector2f Player::getPosition()
 {
 	return m_playerPosition;
 }
-
 
 void Player::setupSprite()
 {
@@ -40,49 +38,83 @@ void Player::movePlayer()
 
 	sf::Vector2f move{ 0.0f,0.0f };
 
-	float moveSpeed = 3.0f;
+	float moveSpeed = 3.2f;
 
-	switch (m_facing)
+	if (canMove = true)
 	{
-	case Direction::None:
-		break;
-	case Direction::North:
-		move.y = -1.0f;
-		break;
-	case Direction::West:
-		move.x = -1.0f;
-		break;
-	case Direction::South:
-		move.y = 1.0f;
-		break;
-	case Direction::East:
-		move.x = 1.0f;
-		break;
-	case Direction::NorthWest:
-		move.x = -0.8f;
-		move.y = -0.8f;
-		break;
-	case Direction::NorthEast:
-		move.x = 0.8f;
-		move.y = -0.8f;
-		break;
-	case Direction::SouthWest:
-		move.x = -0.8f;
-		move.y = 0.8f;
-		break;
-	case Direction::SouthEast:
-		move.x = 0.8f;
-		move.y = 0.8f;
-		break;
-	default:
-		break;
+		switch (m_facing)
+		{
+		case Direction::None:
+			break;
+		case Direction::North:
+			move.y = -1.0f;
+			break;
+		case Direction::West:
+			move.x = -1.0f;
+			break;
+		case Direction::South:
+			move.y = 1.0f;
+			break;
+		case Direction::East:
+			move.x = 1.0f;
+			break;
+		case Direction::NorthWest:
+			move.x = -0.8f;
+			move.y = -0.8f;
+			break;
+		case Direction::NorthEast:
+			move.x = 0.8f;
+			move.y = -0.8f;
+			break;
+		case Direction::SouthWest:
+			move.x = -0.8f;
+			move.y = 0.8f;
+			break;
+		case Direction::SouthEast:
+			move.x = 0.8f;
+			move.y = 0.8f;
+			break;
+		default:
+			break;
+		}
 	}
+	
 
 	move *= moveSpeed;
 
 	m_playerPosition += move;
 	m_characterSprite.setPosition(m_playerPosition);
 
+}
+
+void Player::collision()
+{
+
+
+	if (m_playerPosition.x < SCREEN_LEFT_BORDER)
+	{
+		canMove = false;
+
+		m_playerPosition.x = SCREEN_LEFT_BORDER;
+	}
+	if (m_playerPosition.x > SCREEN_RIGHT_BORDER)
+	{
+		canMove = false;
+
+		m_playerPosition.x = SCREEN_RIGHT_BORDER;
+	}
+	if (m_playerPosition.y < SCREEN_TOP_BORDER)
+	{
+		canMove = false;
+
+		m_playerPosition.y = SCREEN_TOP_BORDER;
+	}
+	if (m_playerPosition.y > SCREEN_BOTTOM_BORDER)
+	{
+		canMove = false;
+
+		m_playerPosition.y = SCREEN_BOTTOM_BORDER;
+	}
 }
 
 sf::Sprite Player::getSprite()
@@ -163,4 +195,11 @@ void Player::getDirection()
 
 	}
 
+}
+
+void Player::playerGetDamaged()
+{
+
+
+	
 }

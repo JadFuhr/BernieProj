@@ -33,7 +33,7 @@ public:	  // declaration of member functions
 	
 
 	Player m_player;
-	EnemyOne m_enemyOne;
+	EnemyOne m_enemyOnes[MAX_DRAGON_ENEMY];
 	EnemyTwo m_enemyTwo;
 
 	sf::Sprite m_backgroundSprite;
